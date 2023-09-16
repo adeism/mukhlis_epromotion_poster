@@ -1,3 +1,2 @@
 # Mukhlis ePromotion Poster
-an application created to load all the images in the images folder without needing to know the number of names of the images in it.
-create images folder and upload your images
+designed to display a slideshow of images from a specified folder. The application dynamically loads all the images from the 'images' folder without the need to manually specify their names or count. The code snippet is written in HTML and JavaScript, utilizing PHP for server-side operations. The application presents a full-screen image view with a fade effect between each image transition. The images are fetched from the 'images' folder and displayed in a loop, changing every certain seconds (default 10 second). The code is accompanied by CSS styling to enhance the visual presentation of the application. 
