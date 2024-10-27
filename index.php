@@ -1,87 +1,58 @@
-<!-- Mukhlis ePromotion Poster https://github.com/adeism/mukhlis_epromotion_poster
-Mukhlis ePromotion Poster is an application created to load all the images
-in the images folder without needing to know the number of names of the images in it.-->
+<?php
+require_once 'functions.php';
+$config = require_once 'config.php';
 
-
+$imageManager = new ImageManager($config);
+$images = $imageManager->getImages();
+?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mukhlis ePromotion Poster</title>
-    <style>
-         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f2f2f2; /* Set a background color to enhance contrast */
-        }
-
-        #fullscreenImage {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease-in-out; /* Increased duration for a smoother transition */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $config['app_name']; ?></title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <img id="fullscreenImage" src="" alt="Full Screen Image">
+    <div id="slideshow-container">
+        <img id="fullscreenImage" src="" alt="Promotional Image">
+        <div id="caption"></div>
+        
+        <?php if ($config['enable_captions']): ?>
+        <div id="caption-container"></div>
+        <?php endif; ?>
+        
+        <?php if ($config['debug_mode']): ?>
+        <div id="debug-info"></div>
+        <?php endif; ?>
+        
+        <div id="controls">
+            <button id="prevBtn">&lt;</button>
+            <button id="playPauseBtn">⏸</button>
+            <button id="nextBtn">&gt;</button>
+        </div>
+        
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        
+        <?php if ($config['enable_touch_swipe']): ?>
+        <div id="swipe-indicator"></div>
+        <?php endif; ?>
+    </div>
+
+    <div id="thumbnail-container">
+        <?php foreach ($images as $index => $image): ?>
+        <div class="thumbnail" data-index="<?php echo $index; ?>">
+            <img src="<?php echo $image['thumbnail']; ?>" alt="<?php echo $image['caption']; ?>">
+        </div>
+        <?php endforeach; ?>
+    </div>
+
     <script>
-        const fullscreenImage = document.getElementById('fullscreenImage');
-        let currentIndex = 0;
-        let imageSources = [];
-        let redirectOnNext = false; 
-
-        document.addEventListener('click', handleClick);
-        document.addEventListener('keydown', handleKeydown);
-
-        function handleClick() {
-          redirectOnNext = true; 
-        }
-
-        function handleKeydown() {
-          redirectOnNext = true;
-        }
-
-        function redirect() {
-          if(redirectOnNext) {
-            window.location.href = 'https://psb.feb.ui.ac.id';
-          }
-        }
-
-        setInterval(redirect, 500);
-
-        <?php
-            // Retrieve image filenames from the "images" folder, sorted by modification time descending
-            $imageFolder = 'images/';
-            $imageFiles = glob($imageFolder . '*.{jpg,jpeg,png,gif,bmp,webp,JPG,JPEG,PNG,GIF,BMP,WEBP}', GLOB_BRACE);
-            usort($imageFiles, function($a, $b) {
-                return filemtime($b) - filemtime($a);
-            });
-            $imageSources = json_encode($imageFiles);
-        ?>
-        imageSources = <?php echo $imageSources; ?>;
-
-        // Function to change the image source with a fade effect
-        function changeImage() {
-            fullscreenImage.style.opacity = 0;
-            setTimeout(() => {
-                fullscreenImage.src = imageSources[currentIndex];
-                currentIndex = (currentIndex + 1) % imageSources.length;
-                fullscreenImage.style.opacity = 1;
-            }, 500);
-        }
-
-        // Initial image change
-        changeImage();
-
-        // Set interval to change image every 10 seconds
-        setInterval(changeImage, 10000);
+        const config = <?php echo json_encode($config); ?>;
+        const images = <?php echo json_encode($images); ?>;
     </script>
+    <script src="slideshow.js"></script>
 </body>
 </html>
-
