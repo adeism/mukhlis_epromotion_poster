@@ -40,10 +40,106 @@ class Slideshow {
         
         // Keyboard navigation
         if (this.config.enable_keyboard_nav) {
-            document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+            document.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+        }
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+});
+
+function showError(message) {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+}
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+    const files = e.target.files;
+    const formData = new FormData();
+    for (const file of files) {
+        formData.append('images[]', file);
+    }
+
+    fetch('upload.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          } else {
+              showError(data.message);
+          }
+      });
+});('keydown', (e) => this.handleKeyPress(e));
         }
         
         // Touch events
         if (this.config.enable_touch_swipe) {
-            document.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-            document.addEventListener
+            document.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+        }
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+});
+
+function showError(message) {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+}
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+    const files = e.target.files;
+    const formData = new FormData();
+    for (const file of files) {
+        formData.append('images[]', file);
+    }
+
+    fetch('upload.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          } else {
+              showError(data.message);
+          }
+      });
+});('touchstart', (e) => this.handleTouchStart(e));
+            document.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+        }
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+});
+
+function showError(message) {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+}
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+    const files = e.target.files;
+    const formData = new FormData();
+    for (const file of files) {
+        formData.append('images[]', file);
+    }
+
+    fetch('upload.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          } else {
+              showError(data.message);
+          }
+      });
+});

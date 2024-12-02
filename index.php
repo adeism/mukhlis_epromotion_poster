@@ -1,4 +1,7 @@
 <?php
+function sanitize($data) {
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
 require_once 'functions.php';
 $config = require_once 'config.php';
 
@@ -44,7 +47,7 @@ $images = $imageManager->getImages();
     <div id="thumbnail-container">
         <?php foreach ($images as $index => $image): ?>
         <div class="thumbnail" data-index="<?php echo $index; ?>">
-            <img src="<?php echo $image['thumbnail']; ?>" alt="<?php echo $image['caption']; ?>">
+            <img src="<?php echo sanitize($image['thumbnail']); ?>" alt="<?php echo sanitize($image['caption']); ?>" loading="lazy">
         </div>
         <?php endforeach; ?>
     </div>
@@ -54,5 +57,11 @@ $images = $imageManager->getImages();
         const images = <?php echo json_encode($images); ?>;
     </script>
     <script src="slideshow.js"></script>
+    <button id="themeToggle">Toggle Theme</button>
+    <div id="error-message" style="display: none; color: red;"></div>
+    <div id="upload-container">
+        <input type="file" id="fileInput" multiple>
+        <p>Drag and drop images here or click to upload</p>
+    </div>
 </body>
 </html>

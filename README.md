@@ -85,6 +85,36 @@ Files are supported in both lowercase and uppercase extensions.
 
 Feel free to fork this project and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
+## 🎥 Preview
+
+![Preview](preview.gif)
+
+## 🔍 Troubleshooting
+
+### Common Issues and Solutions
+
+1. **Images not displaying**
+   - Check if the images folder has correct permissions
+   - Verify that image files are in supported formats
+   - Ensure file sizes are within the configured limit
+
+2. **Slideshow not advancing**
+   - Check if JavaScript is enabled in your browser
+   - Clear browser cache and reload the page
+   - Verify no JavaScript errors in browser console
+
+3. **Upload issues**
+   - Check PHP upload_max_filesize setting
+   - Verify folder permissions
+   - Ensure proper file ownership
+
+4. **Performance issues**
+   - Optimize image sizes
+   - Enable browser caching
+   - Check server resources
+
+For additional support, please open an issue on GitHub.
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
