@@ -85,6 +85,34 @@ Files are supported in both lowercase and uppercase extensions.
 
 Feel free to fork this project and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
+## 🖥️ Preview
+
+![Application Preview](preview.gif)
+
+## 🔍 Troubleshooting
+
+### Common Issues:
+1. **Images not displaying**
+   - Check file permissions on the `images` folder
+   - Verify image formats are supported
+   - Ensure files are not corrupted
+
+2. **Slideshow not advancing**
+   - Check JavaScript is enabled in your browser
+   - Verify no JavaScript console errors
+   - Check slideshow interval settings
+
+3. **Thumbnails not generating**
+   - Verify PHP GD library is installed
+   - Check write permissions on thumbnails folder
+   - Ensure enough server memory for image processing
+
+### Debug Mode
+Enable debug mode in config.php to see detailed error messages:
+```php
+'debug_mode' => true
+```
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
