@@ -1,4 +1,7 @@
 <?php
+function sanitize($input) {
+    return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+}
 require_once 'functions.php';
 $config = require_once 'config.php';
 
@@ -15,7 +18,8 @@ $images = $imageManager->getImages();
 </head>
 <body>
     <div id="slideshow-container">
-        <img id="fullscreenImage" src="" alt="Promotional Image">
+        <img id="fullscreenImage" src="" alt="Promotional Image" loading="lazy">
+        <img id="preloadImage" src="" alt="" style="display: none;" loading="lazy">
         <div id="caption"></div>
         
         <?php if ($config['enable_captions']): ?>
@@ -54,5 +58,11 @@ $images = $imageManager->getImages();
         const images = <?php echo json_encode($images); ?>;
     </script>
     <script src="slideshow.js"></script>
+    <button id="themeToggle">Toggle Theme</button>
+    <div id="error-message" style="display: none;"></div>
+    <div id="upload-container">
+        <input type="file" id="fileInput" multiple accept="image/*">
+        <button id="uploadBtn">Upload Images</button>
+    </div>
 </body>
 </html>
